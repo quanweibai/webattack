@@ -72,12 +72,30 @@ A站 直接访问该链接，就能删除用户在 B站 的评论。<br/>*
 **CSRF 与 Xss 最大的区别是： CSRF不直接获取用户的cookie, 而Xss 则会直接获取用户的Cookie** <br/>
 **如果用户访问了某一个银行的网站忘记登出了， 然后又访问了一个恶意网站，而恶意网站中存在以下代码，则发生CSRF** <br/>
 ``` html
-
+<html>
+<head>
+  <script type="text/javascript">
+    function steal()
+    {
+             iframe = document.frames["steal"];
+             iframe.document.Submit("transfer");
+    }
+  </script>
+</head>
+<body onload="steal()">
+ <iframe name="steal" display="none">
+   <form method="POST" name="transfer"　action="http://www.myBank.com/Transfer.php">
+     <input type="hidden" name="toBankId" value="11">
+     <input type="hidden" name="money" value="1000">
+   </form>
+ </iframe>
+</body>
+</html>
 ```
 **如何防范**
 - 验证码
 - Cookie Hashing(所有表单请求都包含同一个伪随机值)，**原则上来讲黑客无法获取用户的cookie，只是原则上来讲**
-``` php
+``` html
 <?php
    $hash = md5($_COOKIE['cookie']);
  ?>
