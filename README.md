@@ -17,6 +17,7 @@ SELECT * FROM users WHERE username = ' ' or 1=1  AND password = 'anything'
  - 服务端特殊字符过滤: <、>、* 、& 等
  - 使用ORM框架
  - 参数化Sql查询语句
+ <br/>
  ## Xss攻击
  XSS 全称(Cross Site Scripting) 跨站脚本攻击， 是Web程序中最常见的漏洞。指攻击者在网页中嵌入客户端脚本(例如JavaScript), 当用户浏览此网页时，脚本就会在用户的浏览器上执行，从而达到攻击者的目的.  比如获取用户的Cookie，导航到恶意网站,携带木马等。<br/>
  **分类： 反射型和持久型**<br/>
