@@ -60,3 +60,51 @@ all&ssid=s5-e&search_type=item&atype=&filterFineness=&rr=
 如上例中的hack.js, 如果用户输入的内容是hack.js中的内容，而网站没有对用户输入的内容进行审查就存入数据库，然后在论坛帖子中展示，其他用户在浏览论坛的时候就会在浏览器中执行hack.js的js脚本。<br/>
 **如何防范** <br/>
 - 后台对敏感字符过滤
+## CSRF
+CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。<br/>
+你这可以这么理解CSRF攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账......造成的问题包括：个人隐私泄露以及财产安全。<br/>
+**原理** <br/>
+*网站A ：为恶意网站。<br/>
+网站B ：用户已登录的网站。<br/>
+当用户访问 A站 时，A站 私自访问 B站 的操作链接，模拟用户操作。<br/>
+假设B站有一个删除评论的链接：http://b.com/comment/?type=delete&id=81723 <br/>
+A站 直接访问该链接，就能删除用户在 B站 的评论。<br/>*
+**CSRF 与 Xss 最大的区别是： CSRF不直接获取用户的cookie, 而Xss 则会直接获取用户的Cookie** <br/>
+**如果用户访问了某一个银行的网站忘记登出了， 然后又访问了一个恶意网站，而恶意网站中存在以下代码，则发生CSRF**
+``` html
+<html>
+　　<head>
+　　　　<script type="text/javascript">
+　　　　　　function steal()
+　　　　　　{
+          　　　　 iframe = document.frames["steal"];
+　　     　　      iframe.document.Submit("transfer");
+　　　　　　}
+　　　　</script>
+　　</head>
+
+　　<body onload="steal()">
+　　　　<iframe name="steal" display="none">
+　　　　　　<form method="POST" name="transfer"　action="http://www.myBank.com/Transfer.php">
+　　　　　　　　<input type="hidden" name="toBankId" value="11">
+　　　　　　　　<input type="hidden" name="money" value="1000">
+　　　　　　</form>
+　　　　</iframe>
+　　</body>
+</html>
+```
+**如何防范**
+- 验证码
+- Cookie Hashing(所有表单请求都包含同一个伪随机值)，**原则上来讲黑客无法获取用户的cookie，只是原则上来讲**
+``` php
+<?php
+   $hash = md5($_COOKIE['cookie']);
+ ?>
+ <form method=”POST” action=”transfer.php”>
+   <input type=”text” name=”toBankId”>
+   <input type=”text” name=”money”>
+   <input type=”hidden” name=”hash” value=”<?=$hash;?>”>
+   <input type=”submit” name=”submit” value=”Submit”>
+ </form>
+```
+然后在服务器端进行Hash值验证。
