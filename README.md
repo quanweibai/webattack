@@ -71,7 +71,7 @@ CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也�
 当用户访问 A站 时，A站 私自访问 B站 的操作链接，模拟用户操作。<br/>
 假设B站有一个删除评论的链接：http://b.com/comment/?type=delete&id=81723 <br/>
 A站 直接访问该链接，就能删除用户在 B站 的评论。<br/>*
-*
+``` html
 <html>
 <head>
   <script type="text/javascript">
@@ -91,7 +91,7 @@ A站 直接访问该链接，就能删除用户在 B站 的评论。<br/>*
  </iframe>
 </body>
 </html>
-*
+```
 **如何防范**
 - 验证码
 - Cookie Hashing(所有表单请求都包含同一个伪随机值)，**原则上来讲黑客无法获取用户的cookie，只是原则上来讲** <br/>
