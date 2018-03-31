@@ -65,7 +65,6 @@ CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也�
 你这可以这么理解CSRF攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账......造成的问题包括：个人隐私泄露以及财产安全。<br/>
 **CSRF 与 Xss 最大的区别是： CSRF不直接获取用户的cookie, 而Xss 则会直接获取用户的Cookie** <br/>
 **如果用户访问了某一个银行的网站忘记登出了， 然后又访问了一个恶意网站，而恶意网站中存在以下代码，则发生CSRF** <br/>
-
 ``` html
 <html>
 <head>
@@ -89,7 +88,7 @@ CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也�
 ```
 **如何防范**
 - 验证码
-- Cookie Hashing(所有表单请求都包含同一个伪随机值)，**原则上来讲黑客无法获取用户的cookie，只是原则上来讲** <br/>
+- Cookie Hashing(所有表单请求都包含同一个伪随机值)，**原则上来讲黑客无法获取用户的cookie，只是原则上来讲**
 ``` html
 <?php
    $hash = md5($_COOKIE['cookie']);
