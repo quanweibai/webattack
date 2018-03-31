@@ -88,7 +88,7 @@ CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也�
 ```
 **如何防范**
 - 验证码
-- Cookie Hashing(所有表单请求都包含同一个伪随机值)，**原则上来讲黑客无法获取用户的cookie，只是原则上来讲**
+- Cookie Hashing(所有表单请求都包含同一个伪随机值)，原则上来讲黑客无法获取用户的cookie，只是原则上来讲
 ``` html
 <?php
    $hash = md5($_COOKIE['cookie']);
